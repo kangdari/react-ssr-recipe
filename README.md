@@ -32,8 +32,20 @@ Loadable Component 라이브러리에서 제공하는 기능을 사용해 SSR �
 >
 >#### StaticRouter
 >주로 SSR 용도로 사용되는 라우터
+
 >props로 넣어주는 location 값에 따라 라우팅해 줌.
 >context라는 props는 렌더링 컴포넌트에 따라 HTTP 상태 코드 설정.
 
 >빌드, 서버 실행 후 network 탭에서 SSR이 제대로 이루어졌는지 확인 가능.
 
+## 정적 파일 제공하기
+>Express에 내장되어 있는 static 미들웨어를 사용하여 서버를 통해 build에 있는 JS, CSS 정적 파일들에 접근 
+
+>JS, CSS 파일을 불러오도록 html에 코드를 삽입해줘야 함.
+>yarn build 명령어 실행 후, asset-manifex.json 파일을 참고하여
+>"main.js", "main.js", "runtime-main.js", "static/js/2.9ace3854.chunk.js"
+>4가지 파일을 html 내부에 삽입해 주어야 함.
+
+>서버 빌드하고 시작하면
+>각 페이지는 CSS도 함께 적용되어야 하고, 첫 번째 렌더링은 SSR이 이루어지며,
+>이 후 링크를 눌러 이동할 때는 CSR이 되어야 함.

@@ -63,3 +63,11 @@ Loadable Component 라이브러리에서 제공하는 기능을 사용해 SSR �
 
 >리덕스 모듈 작성 + redux 적용
 >Users, UsersContainer 컴포넌트 작성, Route 설정
+
+## preloadContext 만들기
+>현재 getUsers 함수는 UsersContainer의 useEffect 부분에서 호출됩니다.
+>클래스형이라면 componentDidMount에서 호출됩니다.
+>SSR을 할 때는 useEffect나 componentDidMount에서 정한 작업이 호출X
+
+>서버 환경에서 이러한 작업을 하기 위해 PreloadContext를 만들고 
+>이를 사용하는 Preloader 컴포넌트를 만들어 처리해봅시다.

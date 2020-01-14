@@ -7,6 +7,13 @@ import App from "./App";
 import path from "path";
 import fs from "fs";
 
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import rootRouter from './module.js/index'
+
+import PreloadContext from './lib/PreloadContext';
+
 // asset-manifest.json 에서 파일 경로들을 조회
 const manifest = JSON.parse(
     fs.readFileSync(path.resolve("./build/asset-manifest.json"), "utf8")
@@ -44,16 +51,39 @@ function createPage(root) {
 const app = express();
 
 // SSR을 처리할 핸들러 함수.
+// 서버에 요청이 들어올 때마다 새로운 스토어를 만듦.
 const serverRender = (req, res, next) => {
     // 이 함수는 404가 떠야하는 상황에서 404를 띄우지 않고
     // SSR을 해줌.
     const context = {};
+    const store = createStore(rootRouter, applyMiddleware(thunk));
+
+    const preloadContext = {
+        done: false,
+        promises: []
+    };
+    
+
     const jsx = (
-        // StaticRouter 주로 SSR 용도로 사용되는 라우터
-        <StaticRouter location={req.url} context={context}>
-            <App />
-        </StaticRouter>
+        <PreloadContext.Provider value={preloadContext}>
+            <Provider store={store}>
+                {/* StaticRouter 주로 SSR 용도로 사용되는 라우터 */}
+                <StaticRouter location={req.url} context={context}>
+                    <App />
+                </StaticRouter>
+            </Provider>
+        </PreloadContext.Provider>
     );
+    // PreloadContext를 사용하여 프로미스들을 수집하고 기다렸다가
+    // 다시 렌더링 작업 수행...
+    ReactDOMServer.renderToStaticMarkup(jsx); // renderToStaticMarkup으로 한번 렌더링 됨.
+    try{
+        await Promise.all(preloadContext.promises); // 모든 프로미스들을 기다림.
+    }catch(e){
+        return res.status(500);
+    }
+    preloadContext.done = true; // 작업 끝
+
     const root = ReactDOMServer.renderToString(jsx); // 렌더링
     res.send(createPage(root)); // 클라이언트에 결과물을 응답
 };

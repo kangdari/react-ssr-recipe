@@ -10,7 +10,10 @@ import thunk from 'redux-thunk';
 import rootReducer from './module.js/index';
 
 // store 생성 및 thunk 미들웨어 적용
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(
+    rootReducer,
+    window.__PRELOADED_STATE__, // 이 값을 초기 상태로 사용
+    applyMiddleware(thunk));
 
 ReactDOM.render(
     <Provider store={store}>

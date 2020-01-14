@@ -24,7 +24,7 @@ const chunks = Object.keys(manifest.files)
     .map(key => `<script src=${manifest.files[key]}></script>`)// 스크립트 태그로 변환하고
     .join('')
 
-function createPage(root) {
+function createPage(root, stateScript) {
     return `<!DOCTYPE html>
         <html lang="en">
             <head>
@@ -38,8 +38,9 @@ function createPage(root) {
             <body>
                 <noscript>You need to enable JavaScript to run this app.</noscript>
                 <div id="root">
-                ${root}
+                    ${root}
                 </div>
+                ${stateScript}
                 <script src="${manifest.files["runtime-main.js"]}"></script>
                 ${chunks}
                 <script src="${manifest.files["main.js"]}"></script>
@@ -52,7 +53,7 @@ const app = express();
 
 // SSR을 처리할 핸들러 함수.
 // 서버에 요청이 들어올 때마다 새로운 스토어를 만듦.
-const serverRender = (req, res, next) => {
+const serverRender = async (req, res, next) => {
     // 이 함수는 404가 떠야하는 상황에서 404를 띄우지 않고
     // SSR을 해줌.
     const context = {};
@@ -85,7 +86,11 @@ const serverRender = (req, res, next) => {
     preloadContext.done = true; // 작업 끝
 
     const root = ReactDOMServer.renderToString(jsx); // 렌더링
-    res.send(createPage(root)); // 클라이언트에 결과물을 응답
+    // JSON을 문자열로 변환하고 악성 스크립트가 실행되는 것을 방지하기 위해 <를 치환 처리
+    const stateString = JSON.stringify(store.getState()).replace(/</g, '\\u003c');
+    const stateScript = `<script>__PRELOADED_STATE__ = ${stateString}</script>` // 리덕스 초기 상태를 스크립트로 주입.
+
+    res.send(createPage(root, stateScript)); // 클라이언트에 결과물을 응답
 };
 
 const serve = express.static(path.resolve('./build'), {

@@ -62,3 +62,4 @@ Loadable Component 라이브러리에서 제공하는 기능을 사용해 SSR �
 >yarn add redux react-redux redux-thunk axios
 
 >리덕스 모듈 작성 + redux 적용
+>Users, UsersContainer 컴포넌트 작성, Route 설정

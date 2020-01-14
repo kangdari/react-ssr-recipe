@@ -83,6 +83,8 @@ module.exports = {
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
+  ssrIndexJs: resolveApp('src/index.server.js'), // 서버 사이드 렌더링 엔트리, 불러올 파일의 경로
+  ssrBuild: resolveApp('dist') // 웹팩 처리 후 저장 경로
 };
 
 module.exports.moduleFileExtensions = moduleFileExtensions;

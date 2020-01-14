@@ -1,11 +1,19 @@
 const paths = require("./paths");
 const getCSSModuleLocalIdent = require("react-dev-utils/getCSSModuleLocalIdent");
 // CSS Module의 고유 className을 만들 때 필요한 옵션
+const nodeExternals = require('webpack-node-externals');
+// 환경 변수 주입
+const webpack = require('webpack');
+const getClientEnvironment = require('./env');
 
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
+
+// 환경 변수 주입
+const publicUrl =paths.servedPath.slice(0, -1);
+const env = getClientEnvironment(publicUrl);
 
 module.exports = {
     mode: "production", // 프로덕션 모드로 설정하여 최적화 옵션들을 활성화

@@ -29,7 +29,7 @@ Loadable Component 라이브러리에서 제공하는 기능을 사용해 SSR �
 
 ## 서버 코드 작성하기
 >SSR을 처리할 서버를 작성, Express 프레임워크 사용
->
+
 >#### StaticRouter
 >주로 SSR 용도로 사용되는 라우터
 
@@ -49,3 +49,16 @@ Loadable Component 라이브러리에서 제공하는 기능을 사용해 SSR �
 >서버 빌드하고 시작하면
 >각 페이지는 CSS도 함께 적용되어야 하고, 첫 번째 렌더링은 SSR이 이루어지며,
 >이 후 링크를 눌러 이동할 때는 CSR이 되어야 함.
+
+## 데이터 로딩
+>데이터 로딩은 API 요청을 의미하며 SSR을 구현할 때 매우 까다로운 문제입니다.
+>일반적인 브라우저 환경에서는 API를 요청하고 응답을 받아 리액트 state or 리덕스 스토어에
+>넣으면 자동으로 리렌더링되지만 서버의 경우 문자열 형태로 렌더링하는 것이므로
+>state나 리덕스 스토어의 상태가 바뀐다고 자동으로 리렌더링되지 않습니다.
+>게다가 서버에서는 componentDidMount 같은 라이프사이클 API도 사용할 수 없습니다.
+
+>redux-thunk or reudx-saga 미들웨어를 사용하여 API호출하는 환경에서 SSR 하는 법
+>필요한 라이브러리 설치
+>yarn add redux react-redux redux-thunk axios
+
+>리덕스 모듈 작성 + redux 적용

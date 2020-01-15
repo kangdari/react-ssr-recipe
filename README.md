@@ -96,3 +96,6 @@ Loadable Component 라이브러리에서 제공하는 기능을 사용해 SSR �
 >컨테이너 컴포넌트에서 dispatch 해야한다면 이 Hook 사용.
 >import { useSelector, useDispatch } from 'react-redux';
 >const dispatch = useDispatch();
+
+## redux-saga SSR 작업
+

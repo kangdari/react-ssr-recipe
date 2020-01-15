@@ -10,7 +10,9 @@ import fs from "fs";
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import rootRouter from './module.js/index'
+import createSagaMiddleware from 'redux-saga';
+import rootRouter, { rootSaga } from './module.js/index';
+import { END } from 'redux-saga';
 
 import PreloadContext from './lib/PreloadContext';
 
@@ -57,7 +59,11 @@ const serverRender = async (req, res, next) => {
     // 이 함수는 404가 떠야하는 상황에서 404를 띄우지 않고
     // SSR을 해줌.
     const context = {};
-    const store = createStore(rootRouter, applyMiddleware(thunk));
+    const sagaMiddleware = createSagaMiddleware();
+    const store = createStore(rootRouter, applyMiddleware(thunk, sagaMiddleware));
+
+    const sagaPromise = sagaMiddleware.run(rootSaga).toPromise();
+    sagaMiddleware.run(rootSaga);
 
     const preloadContext = {
         done: false,
@@ -78,7 +84,9 @@ const serverRender = async (req, res, next) => {
     // PreloadContext를 사용하여 프로미스들을 수집하고 기다렸다가
     // 다시 렌더링 작업 수행...
     ReactDOMServer.renderToStaticMarkup(jsx); // renderToStaticMarkup으로 한번 렌더링 됨.
+    store.dispatch(END); // redux-saga의 END 액션을 발생시키면서 액션을 모니터링하는 사가들이 종료됨.
     try{
+        await sagaPromise; // 기존에 진행 중이던 사가들이 모두 끝날 때까지 기다림.
         await Promise.all(preloadContext.promises); // 모든 프로미스들을 기다림.
     }catch(e){
         return res.status(500);

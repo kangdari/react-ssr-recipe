@@ -923,7 +923,7 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.4.0", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6":
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.4.0", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.7.7":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.8.3.tgz#0811944f73a6c926bb2ad35e918dcc1bfab279f1"
   integrity sha512-fVHx1rzEmwB130VTkLnxR+HmxcTjGzH12LYQcFFoBwakMd3aOMD4OsRN7tGG/UOYE2ektgFrS8uACAoRk1CY0w==
@@ -1193,6 +1193,35 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
+
+"@loadable/babel-plugin@^5.12.0":
+  version "5.12.0"
+  resolved "https://registry.yarnpkg.com/@loadable/babel-plugin/-/babel-plugin-5.12.0.tgz#de18d4637eb8f4bdecd694a6737880b3e2094d4c"
+  integrity sha512-hb4TDUalaGogsCASEi0fD9Jn0Y2nQybupGgJQAxmx2KrLKxRoWfg78bJMabvownonsq3MEWgUWqb0c3m0uX9vQ==
+  dependencies:
+    "@babel/plugin-syntax-dynamic-import" "^7.7.4"
+
+"@loadable/component@^5.12.0":
+  version "5.12.0"
+  resolved "https://registry.yarnpkg.com/@loadable/component/-/component-5.12.0.tgz#34d056d15f53dc08d04e9203cad6867cf4f7306c"
+  integrity sha512-eDG7FPZ8tCFA/mqu2IrYV6eS+UxGBo21PwtEV9QpkpYrx25xKRXzJUm36yfQPK3o7jXu43xpPkwiU4mLWcjJlw==
+  dependencies:
+    "@babel/runtime" "^7.7.7"
+    hoist-non-react-statics "^3.3.1"
+
+"@loadable/server@^5.12.0":
+  version "5.12.0"
+  resolved "https://registry.yarnpkg.com/@loadable/server/-/server-5.12.0.tgz#61069d9cf6151e7d22c25f54264165556a101634"
+  integrity sha512-Sb4hPz3vPf2z8GMPlW2kSiDwy3Lv38LhVFEW/Uy3BJqHxNlollJDD3rXQ6zmCZY5S/x/m1tPox8UyIBhcr8SZg==
+  dependencies:
+    lodash "^4.17.15"
+
+"@loadable/webpack-plugin@^5.12.0":
+  version "5.12.0"
+  resolved "https://registry.yarnpkg.com/@loadable/webpack-plugin/-/webpack-plugin-5.12.0.tgz#b28c6e7a979e9c2f8d8b743a634de0ede124c76f"
+  integrity sha512-9G/DOSvR0BZHF8DCd7jWTVEjfLnyLKB+S5KhBOSCK8pTMwDcTKeb0oVd4iwPyeAfPAN4ibqN90r9qnSKnJ+WEQ==
+  dependencies:
+    mkdirp "^0.5.1"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -4921,7 +4950,7 @@ hmac-drbg@^1.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.0:
+hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#101685d3aff3b23ea213163f6e8e12f4f111e19f"
   integrity sha512-wbg3bpgA/ZqWrZuMOeJi8+SKMhr7X9TesL/rXMjTzh0p0JUBo3II8DHboYbuIXWRlttrUFxwcu/5kygrCw8fJw==

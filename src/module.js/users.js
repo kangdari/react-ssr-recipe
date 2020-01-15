@@ -7,8 +7,8 @@ const GET_USERS_SUCCESS = 'users/GET_USERS_SUCCESS';
 const GET_USERS_FAILURE = 'users/GET_USERS_FAILURE';
 
 const GET_USER = 'users/GET_USER';
-const GET_USER_SUCCESS = 'users/GET_USERS_SUCCESS';
-const GET_USER_FAILURE = 'users/GET_USERS_FAILURE';
+const GET_USER_SUCCESS = 'users/GET_USER_SUCCESS';
+const GET_USER_FAILURE = 'users/GET_USER_FAILURE';
 
 //액션 생성 함수
 const getUsersPending = () => ({ type: GET_USERS_PENDING});

@@ -83,3 +83,16 @@ Loadable Component 라이브러리에서 제공하는 기능을 사용해 SSR �
 >$ yarn add redux-saga
 
 > users 모듈에서 redux-saga를 사용해 특정 사용자의 정보 가져오기.
+
+## User, UserContainer 컴포넌트 작성
+>connect 대신 useSelector와 useDispatch Hook 사용
+
+>#### useSelector
+>connect 함수를 사용하지 않고도 리덕스의 상태 조회 가능
+>const res = useSelector(상태 선택 함수)
+
+>#### useDispatch
+>컴포넌트 내부에서 스터어의 내장 함수 dispatch를 사용하게 해줌.
+>컨테이너 컴포넌트에서 dispatch 해야한다면 이 Hook 사용.
+>import { useSelector, useDispatch } from 'react-redux';
+>const dispatch = useDispatch();
